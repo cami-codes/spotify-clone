@@ -3,7 +3,11 @@ import Spotify from 'spotify-web-api-js';
 
 import { SpotifyConfiguration } from './../../environments/environment';
 import { User } from '../interfaces/user';
-import { SpotifyUserToUserInterface } from '../common/spotify-helper';
+import {
+  SpotifyPlaylistToPlaylist,
+  SpotifyUserToUserInterface,
+} from '../common/spotify-helper';
+import { Playlist } from '../interfaces/playlist';
 
 @Injectable({
   providedIn: 'root',
@@ -60,5 +64,14 @@ export class SpotifyService {
   setAccessToken(token: string) {
     this.spotifyApi.setAccessToken(token);
     localStorage.setItem('token', token);
+  }
+
+  async getUserPlaylist(offset = 0, limit = 50): Promise<Playlist[]> {
+    const playlists = await this.spotifyApi.getUserPlaylists(this.user?.id, {
+      offset,
+      limit,
+    });
+
+    return playlists.items.map(SpotifyPlaylistToPlaylist);
   }
 }

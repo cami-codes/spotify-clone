@@ -1,6 +1,8 @@
 @import 'variables';
 
 $h-spotify-logo: 7.5rem;
+$h-options-menu: 9.375rem;
+$m-between-menus: 0.625rem;
 
 :host {
   display: flex;
@@ -22,6 +24,47 @@ $h-spotify-logo: 7.5rem;
 
       img {
         width: 70%;
+      }
+    }
+
+    .menu-container {
+      width: 100%;
+
+      &.flex {
+        flex-direction: column;
+        justify-content: flex-start;
+        align-items: center;
+      }
+
+      &.options {
+         min-height: $h-options-menu;
+
+         * {
+          margin-bottom: $m-between-menus;
+         }
+      }
+
+      .playlist-title {
+        margin: 10px 0;
+        align-self: flex-start;
+        font-weight: 700;
+        font-size: .7rem;
+        color: $transparent-black-30;
+      }
+
+      .playlist-scroll {
+        width: 100%;
+        max-height: 50vh;
+        overflow-y: auto;
+
+        // TODO: Styles for scrollbar
+        &::-webkit-scrollbar {
+          display: none;
+        }
+
+        * {
+          margin-bottom: $m-between-menus;
+        }
       }
     }
   }
